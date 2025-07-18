@@ -36,10 +36,10 @@ modelTraining = ModelTraining()
 fiveTrainingTargets = database.get_binary_classification_targets(5, 'train')
 trainSetFlattened = database.get_flattened_data('train')
 
-# modelTraining.trainSGDClassifier(trainSetFlattened, fiveTrainingTargets)
-modelTraining.trainDummyClassifier(trainSetFlattened, fiveTrainingTargets)
+modelTraining.trainSGDClassifier(trainSetFlattened, fiveTrainingTargets)
+# modelTraining.trainDummyClassifier(trainSetFlattened, fiveTrainingTargets)
 ##################################
-#   Create a simpletest system   #
+#    simple visual test system   #
 ##################################
 # Test prediction on a single image using Database method
 testImageFlattened = database.get_single_flattened_image('test', 162)
@@ -55,3 +55,10 @@ visualization.plotDigit(database.testSet[162])
 
 # Run cross-validation with beautiful output
 modelTraining.crossValidationTest()
+
+#############################################
+#   Check accuracy with confusion matrix    #
+#############################################
+
+# Run cross-validation with beautiful output
+modelTraining.confusionMatrixTest()

@@ -1,5 +1,7 @@
+from sklearn.calibration import cross_val_predict
 from sklearn.dummy import DummyClassifier
 from sklearn.linear_model import SGDClassifier
+from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import cross_val_score
 import numpy as np
 
@@ -60,4 +62,11 @@ class ModelTraining:
             print("❌ POOR! Model needs significant improvement!")
         print("="*60)
 
-    
+    def confusionMatrixTest(self):
+        predictions = cross_val_predict(self.model, self.trainingSet, self.targets, cv=3)
+        cm = confusion_matrix(self.targets, predictions)
+        # index 0,0 => non-five images which are matched correctly
+        # index 0,1 => non five images which are matched as 5s
+        # index 1,0 => five images which are matched 5s
+        # index 1,1 => five images which are matched non-five
+        print(cm)
