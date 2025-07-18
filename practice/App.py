@@ -28,9 +28,6 @@ print(f"\n" + "="*50)
 # Plot the first digit
 # visualization.plotDigit(database.trainSet[0])
 
-##################################
-#   Create a simpletest system   #
-##################################
 
 # Create model training instance
 modelTraining = ModelTraining()
@@ -41,6 +38,9 @@ trainSetFlattened = database.get_flattened_data('train')
 
 modelTraining.trainSGDClassifier(trainSetFlattened, fiveTrainingTargets)
 
+##################################
+#   Create a simpletest system   #
+##################################
 # Test prediction on a single image using Database method
 testImageFlattened = database.get_single_flattened_image('test', 162)
 prediction = modelTraining.model.predict(testImageFlattened)
@@ -48,3 +48,10 @@ print(f"Prediction for test image 160: {prediction[0]}")
 print(f"Actual label for test image 160: {database.testLabel[162]}")
 
 visualization.plotDigit(database.testSet[162])
+
+#############################################
+#   Check accuracy with cross validation    #
+#############################################
+
+# Run cross-validation with beautiful output
+modelTraining.sgdCrossValidationTest()
