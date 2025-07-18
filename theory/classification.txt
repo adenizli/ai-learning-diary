@@ -1,13 +1,33 @@
--> In this chapter we will use MNIST, which is a dataset containing small images of digits.
--> Sklearn Datasets Package
-#-> fetch_* functions are used to download real-life datasets.
-#-> load_* functions to load small toy datasets bundled with Scikit, so no need to download from internet again and again.
-#-> make_* function to generate fake datasets, usefull for tests.
+🧠 Chapter: MNIST and Classification Basics
+	•	In this chapter, we will use MNIST, which is a dataset containing small images of handwritten digits (0–9).
 
--> SGD Classifier class works independently so it is a good choice for online learning.
+⸻
 
--> We should flatten the images to make it understandable by ML alghorithms. -these just recognizes 1D
+📦 Scikit-Learn Datasets Package
+	•	fetch_* functions are used to download real-world datasets (e.g., fetch_openml("mnist_784")).
+	•	load_* functions are used to load small toy datasets bundled with Scikit-learn, so there’s no need to download them from the internet repeatedly.
+	•	make_* functions are used to generate synthetic (fake) datasets — useful for testing and prototyping.
 
--< Performance Measures >-
--> Cross validation
-#-> 
+⸻
+
+⚙️ SGD Classifier
+	•	SGDClassifier works independently and incrementally.
+	•	It is a good choice for online learning, where the model needs to update continuously as new data arrives.
+
+⸻
+
+🖼️ Flattening the Images
+	•	We must flatten the 2D image matrices into 1D vectors.
+	•	Most ML algorithms only understand 1D feature vectors, not 2D image arrays.
+
+⸻
+
+📊 Performance Measures
+
+➤ Cross-Validation
+	•	Cross-validation splits the training set into multiple folds.
+	•	The model is trained and validated on different folds in multiple iterations.
+	•	Helps assess the model’s ability to generalize on unseen data.
+	•	Avoids over-reliance on a single train/test split.
+	•	cross_val_score automates this, returns an array of scores (e.g., accuracy per fold).
+	•	The mean of the scores is commonly used as the cross-validation accuracy.
