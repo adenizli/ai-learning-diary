@@ -143,3 +143,68 @@ class Database:
             return self.testSet[index], self.testLabel[index]
         else:
             raise ValueError("Dataset must be either 'train' or 'test'")
+    
+    def get_flattened_data(self, dataset='train'):
+        """
+        Get flattened image data suitable for traditional ML classifiers.
+        Converts 3D image arrays (samples, height, width) to 2D (samples, features).
+        
+        Args:
+            dataset (str): Either 'train' or 'test' to specify which dataset
+            
+        Returns:
+            numpy.ndarray: 2D array with shape (num_samples, height*width)
+        """
+        if dataset == 'train':
+            return self.trainSet.reshape(self.trainSet.shape[0], -1)
+        elif dataset == 'test':
+            return self.testSet.reshape(self.testSet.shape[0], -1)
+        else:
+            raise ValueError("Dataset must be either 'train' or 'test'")
+    
+    def get_binary_classification_targets(self, target_digit, dataset='train'):
+        """
+        Create binary classification targets for detecting a specific digit.
+        
+        Args:
+            target_digit (int): The digit to detect (0-9)
+            dataset (str): Either 'train' or 'test' to specify which dataset
+            
+        Returns:
+            numpy.ndarray: Boolean array where True indicates the target digit
+        """
+        if not (0 <= target_digit <= 9):
+            raise ValueError("Target digit must be between 0 and 9")
+            
+        if dataset == 'train':
+            targets = self.trainLabel == target_digit
+            print(f"Created binary targets for digit {target_digit}: {targets.sum()} positive examples out of {len(targets)}")
+            return targets
+        elif dataset == 'test':
+            targets = self.testLabel == target_digit
+            print(f"Test set binary targets for digit {target_digit}: {targets.sum()} positive examples out of {len(targets)}")
+            return targets
+        else:
+            raise ValueError("Dataset must be either 'train' or 'test'")
+    
+    def get_single_flattened_image(self, dataset='train', index=0):
+        """
+        Get a single image flattened and ready for prediction.
+        
+        Args:
+            dataset (str): Either 'train' or 'test' to specify which dataset
+            index (int): Index of the image to retrieve
+            
+        Returns:
+            numpy.ndarray: 2D array with shape (1, height*width) ready for prediction
+        """
+        if dataset == 'train':
+            if index >= len(self.trainSet):
+                raise ValueError(f"Index {index} is out of range for training set (max: {len(self.trainSet)-1})")
+            return self.trainSet[index].reshape(1, -1)
+        elif dataset == 'test':
+            if index >= len(self.testSet):
+                raise ValueError(f"Index {index} is out of range for test set (max: {len(self.testSet)-1})")
+            return self.testSet[index].reshape(1, -1)
+        else:
+            raise ValueError("Dataset must be either 'train' or 'test'")

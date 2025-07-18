@@ -3,3 +3,11 @@
 #-> fetch_* functions are used to download real-life datasets.
 #-> load_* functions to load small toy datasets bundled with Scikit, so no need to download from internet again and again.
 #-> make_* function to generate fake datasets, usefull for tests.
+
+-> SGD Classifier class works independently so it is a good choice for online learning.
+
+-> We should flatten the images to make it understandable by ML alghorithms. -these just recognizes 1D
+
+-< Performance Measures >-
+-> Cross validation
+#-> 
