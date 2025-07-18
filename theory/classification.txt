@@ -1,0 +1,5 @@
+-> In this chapter we will use MNIST, which is a dataset containing small images of digits.
+-> Sklearn Datasets Package
+#-> fetch_* functions are used to download real-life datasets.
+#-> load_* functions to load small toy datasets bundled with Scikit, so no need to download from internet again and again.
+#-> make_* function to generate fake datasets, usefull for tests.
