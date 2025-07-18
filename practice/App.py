@@ -36,8 +36,8 @@ modelTraining = ModelTraining()
 fiveTrainingTargets = database.get_binary_classification_targets(5, 'train')
 trainSetFlattened = database.get_flattened_data('train')
 
-modelTraining.trainSGDClassifier(trainSetFlattened, fiveTrainingTargets)
-
+# modelTraining.trainSGDClassifier(trainSetFlattened, fiveTrainingTargets)
+modelTraining.trainDummyClassifier(trainSetFlattened, fiveTrainingTargets)
 ##################################
 #   Create a simpletest system   #
 ##################################
@@ -54,4 +54,4 @@ visualization.plotDigit(database.testSet[162])
 #############################################
 
 # Run cross-validation with beautiful output
-modelTraining.sgdCrossValidationTest()
+modelTraining.crossValidationTest()

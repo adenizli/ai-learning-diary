@@ -31,3 +31,7 @@
 	•	Avoids over-reliance on a single train/test split.
 	•	cross_val_score automates this, returns an array of scores (e.g., accuracy per fold).
 	•	The mean of the scores is commonly used as the cross-validation accuracy.
+
+-> Why accuracy is not preferred in Classification
+--> By simple example, if we have a digits set. Possibly %90 is not equal to 5. So accuracy is not a direct measurement.
+-> Confusion matrix

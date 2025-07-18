@@ -1,3 +1,4 @@
+from sklearn.dummy import DummyClassifier
 from sklearn.linear_model import SGDClassifier
 from sklearn.model_selection import cross_val_score
 import numpy as np
@@ -10,17 +11,27 @@ class ModelTraining:
         sgdClf = SGDClassifier(random_state=self.uniqueNumber)
         sgdClf.fit(trainingSet, targets)
         self.model = sgdClf
+        self.educatedModelTitle = "SGD Classfier"
         self.trainingSet = trainingSet
         self.targets = targets
 
-    def sgdCrossValidationTest(self):
+    def trainDummyClassifier(self, trainingSet, targets):
+        dummyClf = DummyClassifier()
+        dummyClf.fit(trainingSet, targets)
+        
+        self.model = dummyClf
+        self.trainingSet = trainingSet
+        self.educatedModelTitle = "Dummy Classfier"
+        self.targets = targets
+
+    def crossValidationTest(self):
         cvs = cross_val_score(self.model, self.trainingSet, self.targets, cv=3, scoring="accuracy")
         
         # Beautiful cross-validation results display
         print("\n" + "="*60)
         print("🎯 CROSS-VALIDATION ACCURACY RESULTS")
         print("="*60)
-        print(f"📊 Model: SGD Classifier (Binary Classification)")
+        print(self.educatedModelTitle)
         print(f"🔄 Cross-Validation: 3-Fold")
         print(f"📈 Scoring Metric: Accuracy")
         print("-"*60)
@@ -48,3 +59,5 @@ class ModelTraining:
         else:
             print("❌ POOR! Model needs significant improvement!")
         print("="*60)
+
+    
