@@ -36,18 +36,28 @@ modelTraining = ModelTraining()
 fiveTrainingTargets = database.get_binary_classification_targets(5, 'train')
 trainSetFlattened = database.get_flattened_data('train')
 
-modelTraining.trainSGDClassifier(trainSetFlattened, fiveTrainingTargets)
+fiveTestTargets = database.get_binary_classification_targets(5, 'test')
+testSetFlattened = database.get_flattened_data('test')
+
+modelTraining.initTrainingSet(trainSetFlattened, fiveTrainingTargets)
+modelTraining.initTestSet(testSetFlattened, fiveTestTargets)
+
+modelTraining.trainSGDClassifier()
 # modelTraining.trainDummyClassifier(trainSetFlattened, fiveTrainingTargets)
+
 ##################################
 #    simple visual test system   #
 ##################################
 # Test prediction on a single image using Database method
-testImageFlattened = database.get_single_flattened_image('test', 162)
-prediction = modelTraining.model.predict(testImageFlattened)
-print(f"Prediction for test image 160: {prediction[0]}")
-print(f"Actual label for test image 160: {database.testLabel[162]}")
+# testImageFlattened = database.get_single_flattened_image('test', 162)
+# prediction = modelTraining.model.predict(testImageFlattened)
+# print(f"Prediction for test image 160: {prediction[0]}")
+# print(f"Actual label for test image 160: {database.testLabel[162]}")
 
-visualization.plotDigit(database.testSet[162])
+# visualization.plotDigit(database.testSet[162])
+
+modelTraining.initCrossValidationPredictionsForTrainingSet()
+modelTraining.initTestPredictions()
 
 #############################################
 #   Check accuracy with cross validation    #
@@ -60,5 +70,41 @@ modelTraining.crossValidationTest()
 #   Check accuracy with confusion matrix    #
 #############################################
 
-# Run cross-validation with beautiful output
+# Run test predictions with confusion matrix
 modelTraining.confusionMatrixTest()
+
+#############################################
+#   Check accuracy with precision & recall   #
+#############################################
+
+modelTraining.precisionRecallTest()
+
+#############################################
+#          Adjusting the threshold          #
+#############################################
+
+modelTraining.plotPrecisionRecallFunctions()
+modelTraining.plotPrecisionRecallTradeoff()
+# print(modelTraining.getThresholdForPrecision(0.90))
+
+#############################################
+#          Plotting the ROC curve           #
+#############################################
+modelTraining.initROC()
+modelTraining.plotROC()
+
+#############################################
+#          Plotting the ROC curve           #
+#############################################
+modelTraining.initROC()
+modelTraining.plotROC()
+
+
+
+
+rfcClassifier = ModelTraining()
+rfcClassifier.initTrainingSet(trainSetFlattened, fiveTrainingTargets)
+rfcClassifier.initTestSet(testSetFlattened, fiveTestTargets)
+rfcClassifier.trainRandomForestClassifier()
+rfcClassifier.initRandomForestClassifierCrossValidationPredictions()
+print(rfcClassifier.crossValidationPredictions)

@@ -224,3 +224,5 @@ secrets.json
 
 # Virtual environment activation scripts (if custom)
 activate.sh 
+
+*.pages

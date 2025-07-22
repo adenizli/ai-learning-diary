@@ -13,7 +13,7 @@
 ⚙️ SGD Classifier
 	•	SGDClassifier works independently and incrementally.
 	•	It is a good choice for online learning, where the model needs to update continuously as new data arrives.
-
+		For each decision it computes a score. If score is greater than threshold, it assigns instance to positive class.
 ⸻
 
 🖼️ Flattening the Images
@@ -36,4 +36,25 @@
 --> By simple example, if we have a digits set. Possibly %90 is not equal to 5. So accuracy is not a direct measurement.
 -> Confusion matrix
 #-> General idea is count the number of times instances of class A are classified as class B for all A/B pairs.
-#-> Precision:
+#-> Precision: How many of your predictions are right?
+#-> Precision = True Positives / True Positives + False Positives
+#-> Recall & Sensivity: How many of the true positives predicted?
+#-> Recall = True Positives / True Positives + False Negatives
+#-> F1 Score is the harmonic mean of precision and recall.
+#-> Tradeoff: We can define the threshold own by own by using decision_function()
+#-> Raising threshold decreases recall. 
+-> How to calculate threshold?
+#-> Default threshold is 0.
+#-> Receiver Operating Characteristic (ROC): plots true positive rate against false positive rate
+#-> To compare classifiers, we can focus on area under ROC curve. In ideal classification it equals to 1, on the other hand in random classification it equals to 0.5 (which is corresponding to y=x).
+--> We should use PR curve whenever positive class is rare or when you care more about the FP rather than FN
+
+-> To handle multiple choices in classifiers
+1-> Multinomal classifiers: which are capable of handling many choices
+2-> Training multiple binary classifiers and select highest score
+3-> Traning multiple binary classifiers with OvO strategy. It is used to compare two possible results. -make a tradeoff depending on pace of learning phaase.
+Note: Scikit automatically detects multiclass classification and runs OvR(OvA) or OvO
+
+-> To handle multilabel operations (like face recognation of many people) use different classifiers.
+
+-> Chain classifier: when we wish to use a classifiers which is not natively support multilabel classification, we organize a chain to make next model to use previous models predictions.
